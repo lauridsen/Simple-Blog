@@ -1,21 +1,33 @@
 .login-card {
-    width: 500px;
-    text-align: center;
+  width: 500px;
+  text-align: center;
 }
 
 .post-card {
-    max-width: 880px;
-    text-align: center;
+  max-width: 880px;
+  text-align: center;
 }
 
 .is-micro {
-    padding: 1.5rem 0.75rem
+  padding: 1.5rem 0.75rem;
 }
 
 .card-center-title {
-    justify-content: center;
+  justify-content: center;
 }
 
 .input-button {
-    margin: 10px 0;
+  margin: 10px 0;
+}
+
+.blogpost-card {
+  border-left: hsl(204, 86%, 53%) 3px solid;
+}
+
+.comment-card {
+  border-left: hsl(171, 100%, 41%) 3px solid;
+}
+
+.create-card {
+  border-left: hsl(48, 100%, 67%) 3px solid;
 }
