@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 const UserSchema = new Schema({
   firstName: String,
@@ -8,89 +8,89 @@ const UserSchema = new Schema({
   email: {
     type: String,
     index: true,
-    match: /.+\@.+\..+/
+    match: /.+\@.+\..+/,
   },
   username: {
     type: String,
     trim: true,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
     validate: [
-      function (password) {
+      function(password) {
         return password.length >= 6;
       },
-      "Oops! Password should be longer"
-    ]
+      'Oops! Password should be longer',
+    ],
   },
   salt: {
-    type: String
+    type: String,
   },
   provider: {
     type: String,
-    required: "Provider is required"
+    required: 'Provider is required',
   },
   providerId: String,
   providerData: {},
   role: {
     type: String,
-    enum: ["Admin", "Owner", "User"]
+    enum: ['Admin', 'Owner', 'User'],
   },
   website: {
     type: String,
-    get: function (url) {
+    get: function(url) {
       if (!url) {
         return url;
       } else {
-        if (url.indexOf("http://") !== 0 && url.indexOf("https://") !== 0) {
-          url = "http://" + url;
+        if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+          url = 'http://' + url;
         }
         return url;
       }
     },
-    set: function (url) {
+    set: function(url) {
       if (!url) {
         return url;
       } else {
-        if (url.indexOf("http://") !== 0 && url.indexOf("https://") !== 0) {
-          url = "http://" + url;
+        if (url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+          url = 'http://' + url;
         }
         return url;
       }
-    }
+    },
   },
   created: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-UserSchema.statics.findOneByUsername = function (username, callback) {
-  this.findOne({ username: new RegExp(username, "i") }, callback);
+UserSchema.statics.findOneByUsername = function(username, callback) {
+  this.findOne({ username: new RegExp(username, 'i') }, callback);
 };
 
-UserSchema.pre("save", function (next) {
+UserSchema.pre('save', function(next) {
   if (this.password) {
-    this.salt = new Buffer(crypto.randomBytes(16).toString("base64"), "base64");
+    this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
     this.password = this.hashPassword(this.password);
   }
   next();
 });
-UserSchema.methods.hashPassword = function (password) {
+UserSchema.methods.hashPassword = function(password) {
   return crypto
-    .pbkdf2Sync(password, this.salt, 10000, 64, "sha512")
-    .toString("base64");
+    .pbkdf2Sync(password, this.salt, 10000, 64, 'sha512')
+    .toString('base64');
 };
-UserSchema.methods.authenticate = function (password) {
+UserSchema.methods.authenticate = function(password) {
   return this.password === this.hashPassword(password);
 };
-UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
-  var possibleUsername = username + (suffix || "");
+UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
+  var possibleUsername = username + (suffix || '');
   this.findOne(
     {
-      username: possibleUsername
+      username: possibleUsername,
     },
     (err, user) => {
       if (!err) {
@@ -102,7 +102,7 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
       } else {
         callback(null);
       }
-    }
+    },
   );
 };
 
@@ -129,7 +129,7 @@ UserSchema.statics.findUniqueUsername = function (username, suffix, callback) {
 //   });
 
 //enable getter, setter and virtuals
-UserSchema.set("toJSON", { getters: true, setters: true, virtuals: true });
+UserSchema.set('toJSON', { getters: true, setters: true, virtuals: true });
 
 //Use model for user
-mongoose.model("User", UserSchema);
+mongoose.model('User', UserSchema);

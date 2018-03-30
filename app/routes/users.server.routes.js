@@ -1,20 +1,20 @@
-const users = require("../../app/controllers/users.server.controller");
-const passport = require("passport");
+const users = require('../../app/controllers/users.server.controller');
+const passport = require('passport');
 
 module.exports = function(app) {
   app
-    .route("/signup")
+    .route('/signup')
     .get(users.renderSignup)
     .post(users.signup);
   app
-    .route("/signin")
+    .route('/signin')
     .get(users.renderSignin)
     .post(
-      passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/signin",
-        failureFlash: true
-      })
+      passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/signin',
+        failureFlash: true,
+      }),
     );
-  app.get("/signout", users.signout);
+  app.get('/signout', users.signout);
 };
