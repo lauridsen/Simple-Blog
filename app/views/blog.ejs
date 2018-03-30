@@ -25,7 +25,7 @@
     </style>
     <div class="section">
         <div class="container login-card">
-            <div class="card">
+            <div class="card create-card">
                 <header class="card-header">
                     <p class="card-header-title title card-center-title">Welcome to the blog</p>
                 </header>
@@ -33,7 +33,7 @@
                     <div class="content">
                         <form action="/blog" method="post">
                             <% for(var i in messages) { %>
-                                <div class="flash">
+                                <div class="notification is-danger">
                                     <%= messages[i] %>
                                 </div>
                                 <% } %>
@@ -57,7 +57,7 @@
     <% posts.forEach(function(post){  %>
         <div class="section is-micro">
             <div class="container post-card">
-                <div class="card">
+                <div class="card blogpost-card">
                     <header class="card-header">
                         <p class="card-header-title subtitle card-center-title">
                             <%= post.blogTitle %>

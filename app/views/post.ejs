@@ -16,7 +16,7 @@
     </div>
         <div class="section is-micro">
             <div class="container post-card">
-                <div class="card">
+                <div class="card blogpost-card">
                     <header class="card-header">
                         <p class="card-header-title subtitle card-center-title">
                             <%= selectedPost.blogTitle %>
@@ -29,7 +29,7 @@
                             </p>
                             <p>
                                 Skrevet af:
-                                <%= selectedPost.blogUser %>
+                                <strong><%= selectedPost.blogUser %></strong>
                                 <%= selectedPost.blogCreated.toLocaleString() %>
                             </p>
                         </div>
@@ -37,6 +37,66 @@
                 </div>
             </div>
         </div>
+
+        <div class="section is-micro">
+        <% selectedPost.blogComments.forEach(function(comment){  %>
+            <div class="container post-card">
+                <div class="card comment-card">
+                    <header class="card-header">
+                        <p class="card-header-title subtitle card-center-title">
+                            <%= comment.commentTitle %>
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>
+                                <%= comment.commentContent %>
+                            </p>
+                            <p>
+                                Written by:
+                                <strong><%= comment.commentUser %></strong>
+                                    <%= comment.commentCreated.toLocaleString() %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+            </div>
+
+            <div class="section is-micro">
+
+        <div class="container post-card">
+            <div class="card create-card">
+                <header class="card-header">
+                    <p class="card-header-title title card-center-title">Post a comment</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        <form action=<%="/post/" + idParam %> method="post">
+                        <% for(var i in messages) { %>
+                            <div class="notification is-danger">
+                                <%= messages[i] %>
+                            </div>
+                            <% } %>
+                                <div>
+                                    <label>Post Title:</label>
+                                    <input type="text" name="commentTitle" class="input is-rounded" />
+                                </div>
+                                <div>
+                                    <label>Post Content:</label>
+                                    <textarea name="commentContent" class="input"></textarea>
+                                </div>
+                                <div>
+                                    <input type="submit" value="Create Post" class="button is-primary is-rounded input-button" />
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
 </body>
 

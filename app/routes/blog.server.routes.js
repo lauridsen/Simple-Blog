@@ -6,5 +6,8 @@ module.exports = function(app) {
     .route('/blog')
     .get(blog.getPosts)
     .post(blog.postPost);
-  app.route('/post/:id').get(blog.getPost);
+  app
+    .route('/post/:id')
+    .get(blog.getPost)
+    .post(blog.postComment);
 };

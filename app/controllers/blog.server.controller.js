@@ -16,44 +16,50 @@ exports.getPosts = function(req, res, next) {
       title: 'Sign-in Form',
       messages: req.flash('error') || req.flash('info'),
     });
-  } else {
-    // const allPosts = Blog.find();
-    Blog.find({})
-      .sort({ blogCreated: 'desc' })
-      .exec(function(error, blogposts) {
-        res.render('blog', {
-          title: 'Blog',
-          messages: req.flash('error'),
-          posts: blogposts,
-        });
-      });
   }
+  // const allPosts = Blog.find();
+  Blog.find({})
+    .sort({ blogCreated: 'desc' })
+    .exec(function(error, blogposts) {
+      res.render('blog', {
+        title: 'Blog',
+        messages: req.flash('error'),
+        posts: blogposts,
+      });
+    });
 };
 
 exports.postPost = function(req, res, next) {
   if (!req.user) {
     res.render('/ + "error"');
-  } else {
-    console.log(req.user);
-    blogPost = {
-      blogUser: req.user.username,
-      blogTitle: req.body.blogTitle,
-      blogContent: req.body.blogContent,
-    };
-    console.log('Post object:' + JSON.stringify(blogPost));
-    const newPost = new Blog(blogPost);
-    newPost.save(err => {
-      if (err) {
-        const message = getErrorMessage(err);
-        req.flash('error', message);
-        return res.redirect('/blog');
-      }
-      return res.redirect('/blog');
-    });
   }
+  //Get post data
+  blogPost = {
+    blogUser: req.user.username,
+    blogTitle: req.body.blogTitle,
+    blogContent: req.body.blogContent,
+  };
+  //Create new blogPost document from Model
+  const newPost = new Blog(blogPost);
+  //Save post
+  newPost.save(err => {
+    if (err) {
+      const message = getErrorMessage(err);
+      req.flash('error', message);
+      return res.redirect('/blog');
+    }
+    return res.redirect('/blog');
+  });
 };
 
 exports.getPost = function(req, res, next) {
+  if (!req.user) {
+    res.render('signin', {
+      title: 'Sign-in Form',
+      messages: req.flash('error') || req.flash('info'),
+    });
+  }
+  //Find post and render data
   let param = req.params.id;
   Blog.findOne({ _id: param }, function(error, singlePost) {
     if (error) return getErrorMessage(error);
@@ -61,6 +67,57 @@ exports.getPost = function(req, res, next) {
       title: singlePost.blogTitle,
       messages: req.flash('error'),
       selectedPost: singlePost,
+      idParam: param,
     });
   });
 };
+
+exports.postComment = function(req, res, next) {
+  if (!req.user) {
+    res.render('signin', {
+      title: 'Sign-in Form',
+      messages: req.flash('error') || req.flash('info'),
+    });
+  }
+
+  // Get ID and Comment Data
+  let param = req.params.id;
+  let postedComment = {
+    commentUser: req.user.username,
+    commentTitle: req.body.commentTitle,
+    commentContent: req.body.commentContent,
+  };
+
+  if (req.body.commentTitle == '') {
+    req.flash('error', 'Please enter a title');
+    res.redirect('/post/' + param);
+  } else if (req.body.commentContent == '') {
+    req.flash('error', 'Please enter comment text');
+    res.redirect('/post/' + param);
+  }
+
+  //Push comment to array
+  Blog.findOneAndUpdate(
+    { _id: param },
+    { $push: { blogComments: postedComment } },
+    { upsert: true },
+    function(comment) {
+      console.log('Comment: ' + comment);
+    },
+  );
+
+  //Redirect instead of render to prevent doublepost
+  res.redirect('/post/' + param);
+};
+
+// blogComments = [
+//   {
+//     commentUser: { type: String, required: true },
+//     commentTitle: { type: String, required: true },
+//     commentContent: { type: String, required: true },
+//     commentCreated: {
+//       type: Date,
+//       default: Date.now,
+//     },
+//   },
+// ];
