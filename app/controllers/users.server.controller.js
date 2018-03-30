@@ -26,7 +26,7 @@ exports.renderSignin = function(req, res, next) {
       messages: req.flash('error') || req.flash('info'),
     });
   } else {
-    return res.redirect('/');
+    return res.redirect('/blog');
   }
 };
 exports.renderSignup = function(req, res, next) {
