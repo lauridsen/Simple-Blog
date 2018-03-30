@@ -8,8 +8,8 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="bulma.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/bulma.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -28,13 +28,14 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title title card-center-title">Welcome to the blog</p>
-                </header>
-                <div class="card-content">
+                    </header>
+                    <div class="card-content">
                     <div class="content">
-                        <% if ( userFullName ) { %>
-                            <h2 class="title">Hello
-                                <%=userFullName%>
-                            </h2>
+                    <% if ( userFullName ) { %>
+                    <h2 class="title">Hello
+                    <%=userFullName%>
+                    </h2>
+                    <a href="/blog" class="button is-rounded is-primary">Enter the blog here</a>
                             <a href="/signout" class="button is-rounded is-danger">Sign out</a>
                             <% } else { %>
                                 <a href="/signin" class="button is-rounded is-primary">Sign in</a>
