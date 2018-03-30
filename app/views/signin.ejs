@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="bulma.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <style>
+    h2 {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    img {
+      max-width: 500px;
+      padding-top: 50px;
+    }
+  </style>
+  <div class="section">
+    <div class="container login-card">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title title card-center-title">Sign in</p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <% for(var i in messages) { %>
+              <div class="flash">
+                <%= messages[i] %>
+              </div>
+              <% } %>
+                <form action="/signin" method="post">
+                  <div>
+                    <label>Username:</label>
+                    <input type="text" name="username" class="input is-rounded" />
+                  </div>
+                  <div>
+                    <label>Password:</label>
+                    <input type="password" name="password" class="input is-rounded" />
+                  </div>
+                  <div>
+                    <input type="submit" value="Sign In" class="button is-primary is-rounded input-button" />
+                    <a href="/signup" class="button is-rounded input-button">Sign up</a>
+                  </div>
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

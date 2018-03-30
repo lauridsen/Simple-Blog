@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="bulma.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        h2 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        img {
+            max-width: 500px;
+            padding-top: 50px;
+        }
+    </style>
+    <div class="section">
+        <div class="container login-card">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title title card-center-title">Welcome to the blog</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        <form action="/blog" method="post">
+                            <% for(var i in messages) { %>
+                                <div class="flash">
+                                    <%= messages[i] %>
+                                </div>
+                                <% } %>
+                                    <div>
+                                        <label>Post Title:</label>
+                                        <input type="text" name="blogTitle" class="input is-rounded" />
+                                    </div>
+                                    <div>
+                                        <label>Post Content:</label>
+                                        <textarea name="blogContent" class="input"></textarea>
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="Create Post" class="button is-primary is-rounded input-button" />
+                                    </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% posts.forEach(function(post){  %>
+        <div class="section is-micro">
+            <div class="container post-card">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title subtitle card-center-title">
+                            <%= post.blogTitle %>
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>
+                                <%= post.blogContent %>
+                            </p>
+                            <p>
+                                Skrevet af:
+                                <%= post.blogUser %>
+                                    <%= post.blogCreated.toLocaleString() %>
+                            </p>
+                            <a href="<%= "/post/" + post._id %>" class="button is-rounded input-button">See Full Post</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+
+</body>
+
+</html>

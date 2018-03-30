@@ -1,0 +1,21 @@
+.login-card {
+    width: 500px;
+    text-align: center;
+}
+
+.post-card {
+    max-width: 880px;
+    text-align: center;
+}
+
+.is-micro {
+    padding: 1.5rem 0.75rem
+}
+
+.card-center-title {
+    justify-content: center;
+}
+
+.input-button {
+    margin: 10px 0;
+}

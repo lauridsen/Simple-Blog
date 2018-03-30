@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="bulma.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    </div>
+        <div class="section is-micro">
+            <div class="container post-card">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title subtitle card-center-title">
+                            <%= selectedPost.blogTitle %>
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>
+                                <%= selectedPost.blogContent %>
+                            </p>
+                            <p>
+                                Skrevet af:
+                                <%= selectedPost.blogUser %>
+                                <%= selectedPost.blogCreated.toLocaleString() %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

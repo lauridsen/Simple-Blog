@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="bulma.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        h2 {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        img {
+            max-width: 500px;
+            padding-top: 50px;
+        }
+    </style>
+    <div class="section">
+        <div class="container login-card">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title title card-center-title">Welcome to the blog</p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        <% if ( userFullName ) { %>
+                            <h2 class="title">Hello
+                                <%=userFullName%>
+                            </h2>
+                            <a href="/signout" class="button is-rounded is-danger">Sign out</a>
+                            <% } else { %>
+                                <a href="/signin" class="button is-rounded is-primary">Sign in</a>
+                                <a href="/signup" class="button is-rounded">Sign up</a>
+                                <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
