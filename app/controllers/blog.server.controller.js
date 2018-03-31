@@ -11,12 +11,6 @@ function getErrorMessage(err) {
 }
 
 exports.getPosts = function(req, res, next) {
-  if (!req.user) {
-    res.render('signin', {
-      title: 'Sign-in Form',
-      messages: req.flash('error') || req.flash('info'),
-    });
-  }
   // const allPosts = Blog.find();
   Blog.find({})
     .sort({ blogCreated: 'desc' })
@@ -31,7 +25,8 @@ exports.getPosts = function(req, res, next) {
 
 exports.postPost = function(req, res, next) {
   if (!req.user) {
-    res.render('/ + "error"');
+    req.flash('error', 'Please log in first');
+    res.redirect(`/signin`);
   }
   //Get post data
   blogPost = {
@@ -53,12 +48,6 @@ exports.postPost = function(req, res, next) {
 };
 
 exports.getPost = function(req, res, next) {
-  if (!req.user) {
-    res.render('signin', {
-      title: 'Sign-in Form',
-      messages: req.flash('error') || req.flash('info'),
-    });
-  }
   //Find post and render data
   let param = req.params.id;
   Blog.findOne({ _id: param }, function(error, singlePost) {
@@ -74,10 +63,8 @@ exports.getPost = function(req, res, next) {
 
 exports.postComment = function(req, res, next) {
   if (!req.user) {
-    res.render('signin', {
-      title: 'Sign-in Form',
-      messages: req.flash('error') || req.flash('info'),
-    });
+    req.flash('error', 'Please log in first');
+    res.redirect(`/signin`);
   }
 
   // Get ID and Comment Data
@@ -90,10 +77,10 @@ exports.postComment = function(req, res, next) {
 
   if (req.body.commentTitle == '') {
     req.flash('error', 'Please enter a title');
-    res.redirect('/post/' + param);
+    res.redirect(`/post/${param}#comment-section`);
   } else if (req.body.commentContent == '') {
     req.flash('error', 'Please enter comment text');
-    res.redirect('/post/' + param);
+    res.redirect(`/post/${param}#comment-section`);
   }
 
   //Push comment to array
@@ -109,15 +96,3 @@ exports.postComment = function(req, res, next) {
   //Redirect instead of render to prevent doublepost
   res.redirect('/post/' + param);
 };
-
-// blogComments = [
-//   {
-//     commentUser: { type: String, required: true },
-//     commentTitle: { type: String, required: true },
-//     commentContent: { type: String, required: true },
-//     commentCreated: {
-//       type: Date,
-//       default: Date.now,
-//     },
-//   },
-// ];
