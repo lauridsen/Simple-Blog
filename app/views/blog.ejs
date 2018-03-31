@@ -13,18 +13,13 @@
 </head>
 
 <body>
-    <style>
-        h2 {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        img {
-            max-width: 500px;
-            padding-top: 50px;
-        }
-    </style>
-    <div class="section">
-        <div class="container login-card">
+<div class="navbar">
+    <div class="container nav-container">
+        <a href="/" id="nav-link"><span>&#8249;</span> Back to the frontpage</a>
+    </div>
+</div>
+<div class="section is-micro">
+<div class="container post-card">
             <div class="card create-card">
                 <header class="card-header">
                     <p class="card-header-title title card-center-title">Welcome to the blog</p>
@@ -39,11 +34,11 @@
                                 <% } %>
                                     <div>
                                         <label>Post Title:</label>
-                                        <input type="text" name="blogTitle" class="input is-rounded" />
+                                        <input type="text" name="blogTitle" class="input is-rounded" required />
                                     </div>
                                     <div>
                                         <label>Post Content:</label>
-                                        <textarea name="blogContent" class="input"></textarea>
+                                        <textarea name="blogContent" class="input input-textarea" required></textarea>
                                     </div>
                                     <div>
                                         <input type="submit" value="Create Post" class="button is-primary is-rounded input-button" />

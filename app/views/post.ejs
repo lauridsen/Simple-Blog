@@ -13,6 +13,11 @@
 </head>
 
 <body>
+<div class="navbar">
+    <div class="container nav-container">
+        <a href="/blog" id="nav-link"><span>&#8249;</span> Back to the blog</a>
+    </div>
+</div>
     </div>
         <div class="section is-micro">
             <div class="container post-card">
@@ -71,7 +76,7 @@
                 <header class="card-header">
                     <p class="card-header-title title card-center-title">Post a comment</p>
                 </header>
-                <div class="card-content">
+                <div class="card-content" id="comment-section">
                     <div class="content">
                         <form action=<%="/post/" + idParam %> method="post">
                         <% for(var i in messages) { %>
@@ -81,11 +86,11 @@
                             <% } %>
                                 <div>
                                     <label>Post Title:</label>
-                                    <input type="text" name="commentTitle" class="input is-rounded" />
+                                    <input type="text" name="commentTitle" class="input is-rounded" required/>
                                 </div>
                                 <div>
                                     <label>Post Content:</label>
-                                    <textarea name="commentContent" class="input"></textarea>
+                                    <textarea name="commentContent" class="input input-textarea" required></textarea>
                                 </div>
                                 <div>
                                     <input type="submit" value="Create Post" class="button is-primary is-rounded input-button" />

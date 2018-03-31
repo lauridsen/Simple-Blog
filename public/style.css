@@ -16,8 +16,27 @@
   justify-content: center;
 }
 
+.card-header {
+  box-shadow: initial;
+}
+
 .input-button {
   margin: 10px 0;
+}
+
+.input-textarea {
+  height: 120px;
+}
+
+#nav-link {
+  margin: 0 auto;
+}
+#nav-link span {
+  font-size: 120%;
+}
+
+.nav-container {
+  padding: 20px;
 }
 
 .blogpost-card {
